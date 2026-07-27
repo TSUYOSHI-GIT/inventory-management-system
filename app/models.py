@@ -1,10 +1,10 @@
-"""Модели данных для товара"""
+"""Модели данных для товара."""
 from dataclasses import dataclass
 from app.exceptions import InvalidItemDataError
 
 @dataclass
 class Item:
-    """Товар на складе"""
+    """Товар на складе."""
     id: str
     name: str
     category: str
@@ -12,7 +12,7 @@ class Item:
     quantity: int
 
     def __post_init__(self) -> None:
-        """Валидация данных после инициализации"""
+        """Валидация данных после инициализации."""
         self.name = self.name.strip()
         if not self.name:
             raise InvalidItemDataError("Название товара не может быть пустым")
@@ -27,5 +27,5 @@ class Item:
 
     @property
     def total_value(self) -> float:
-        """Общая стоимость позиции на складе"""
+        """Общая стоимость позиции на складе."""
         return self.price * self.quantity
