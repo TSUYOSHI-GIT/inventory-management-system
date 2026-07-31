@@ -30,9 +30,8 @@ def test_get_all_empty(service):
 
 #Тест на получение товара по id
 def test_get_item_by_id(service):
-    # Добавим товар через репозиторий напрямую
-    item = Item("1", "Товар", "Кат", 10.0, 5)
-    service.repo.add(item)
+    #Добавим через receive
+    service.receive("1", "Товар", "Кат", 10.0, 5)
     result = service.get_item_by_id("1")
     assert result.name == "Товар"
 
