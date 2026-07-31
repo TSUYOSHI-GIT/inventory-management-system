@@ -75,6 +75,8 @@ class InventoryService:
 
     def find_by_name(self, keyword: str) -> Generator[Item, None, None]:
         """Ищет товары по названию."""
+        if not keyword:
+            return
         kw_lower = keyword.lower()
         for item in self._repo.get_all():
             if kw_lower in item.name.lower():
