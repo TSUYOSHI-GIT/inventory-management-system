@@ -5,6 +5,14 @@ from app.repository import InventoryRepository
 from app.service import InventoryService
 from app.exceptions import InventoryError
 
+def print_items(items):
+    """Выводит список товаров или сообщение, если список пуст."""
+    if not items:
+        print("Ничего не найдено")
+        return
+    for item in items:
+        print(f"{item.id}: {item.name} ({item.category}) - {item.quantity} шт по {item.price} руб")
+
 def main():
     repo = InventoryRepository()
     service = InventoryService(repo)
@@ -22,9 +30,7 @@ def main():
         choice = input("Выберите действие: ").strip()
 
         if choice == "1":
-            items = service.get_all_items()
-            for item in items:
-                print(f"{item.id}: {item.name} ({item.category}) - {item.quantity} шт по {item.price} руб")
+            print_items(service.get_all_items())
 
         elif choice == "2":
             item_id = input("Введите id: ").strip()
@@ -66,28 +72,16 @@ def main():
         elif choice == "5":
             cat = input("Категория: ").strip()
             found = list(service.find_by_category(cat))
-            if found:
-                for item in found:
-                    print(f"{item.id}: {item.name} - {item.quantity} шт")
-            else:
-                print("Ничего не найдено")
+            print_items(found)
 
         elif choice == "6":
             keyword = input("Ключевое слово: ").strip()
             found = list(service.find_by_name(keyword))
-            if found:
-                for item in found:
-                    print(f"{item.id}: {item.name} - {item.quantity} шт")
-            else:
-                print("Ничего не найдено")
+            print_items(found)
 
         elif choice == "7":
             found = list(service.find_low_stock())
-            if found:
-                for item in found:
-                    print(f"{item.id}: {item.name} - {item.quantity} шт")
-            else:
-                print("Все товары в достатке")
+            print_items(found)
 
         elif choice == "0":
             print("Выход")
