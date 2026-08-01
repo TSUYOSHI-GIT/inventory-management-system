@@ -38,8 +38,12 @@ def main():
             item_id = input("id: ")
             name = input("Название: ")
             category = input("Категория: ")
-            price = float(input("Цена: "))
-            quantity = int(input("Количество: "))
+            try:
+                price = float(input("Цена: "))
+                quantity = int(input("Количество: "))
+            except ValueError:
+                print("Ошибка: некорректный ввод числа")
+                continue
             try:
                 item = service.receive(item_id, name, category, price, quantity)
                 print(f"Товар принят. Теперь на складе: {item.quantity} шт")
@@ -48,7 +52,11 @@ def main():
 
         elif choice == "4":
             item_id = input("id товара: ")
-            quantity = int(input("Количество для отгрузки: "))
+            try:
+                quantity = int(input("Количество для отгрузки: "))
+            except ValueError:
+                print("Ошибка: некорректный ввод числа")
+                continue
             try:
                 item = service.ship(item_id, quantity)
                 print(f"Отгружено. Осталось: {item.quantity} шт")
