@@ -19,7 +19,7 @@ def main():
         print("6. Поиск по названию")
         print("7. Товары с низким остатком")
         print("0. Выход")
-        choice = input("Выберите действие: ")
+        choice = input("Выберите действие: ").strip()
 
         if choice == "1":
             items = service.get_all_items()
@@ -27,7 +27,7 @@ def main():
                 print(f"{item.id}: {item.name} ({item.category}) - {item.quantity} шт по {item.price} руб")
 
         elif choice == "2":
-            item_id = input("Введите id: ")
+            item_id = input("Введите id: ").strip()
             try:
                 item = service.get_item_by_id(item_id)
                 print(f"Найден: {item.name}, {item.quantity} шт")
@@ -35,12 +35,12 @@ def main():
                 print(f"Ошибка: {e}")
 
         elif choice == "3":
-            item_id = input("id: ")
-            name = input("Название: ")
-            category = input("Категория: ")
+            item_id = input("id: ").strip()
+            name = input("Название: ").strip()
+            category = input("Категория: ").strip()
             try:
-                price = float(input("Цена: "))
-                quantity = int(input("Количество: "))
+                price = float(input("Цена: ").strip())
+                quantity = int(input("Количество: ").strip())
             except ValueError:
                 print("Ошибка: некорректный ввод числа")
                 continue
@@ -51,9 +51,9 @@ def main():
                 print(f"Ошибка: {e}")
 
         elif choice == "4":
-            item_id = input("id товара: ")
+            item_id = input("id товара: ").strip()
             try:
-                quantity = int(input("Количество для отгрузки: "))
+                quantity = int(input("Количество для отгрузки: ").strip())
             except ValueError:
                 print("Ошибка: некорректный ввод числа")
                 continue
@@ -64,7 +64,7 @@ def main():
                 print(f"Ошибка: {e}")
 
         elif choice == "5":
-            cat = input("Категория: ")
+            cat = input("Категория: ").strip()
             found = list(service.find_by_category(cat))
             if found:
                 for item in found:
@@ -73,7 +73,7 @@ def main():
                 print("Ничего не найдено")
 
         elif choice == "6":
-            keyword = input("Ключевое слово: ")
+            keyword = input("Ключевое слово: ").strip()
             found = list(service.find_by_name(keyword))
             if found:
                 for item in found:
