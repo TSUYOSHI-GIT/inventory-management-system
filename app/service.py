@@ -22,10 +22,10 @@ class InventoryService:
 
     def receive(self, item_id: str, name: str, category: str,
                 price: float, quantity: int) -> Item:
-        """Принимает товар на склад."""
+        """Принимает товар. Если товар с таким id уже есть - увеличивает количество, иначе создает новый."""
         try:
             existing = self._repo.get_by_id(item_id)
-            #Если товар уже есть - увеличиваем количество
+            # Если товар уже есть - увеличиваем количество
             updated = Item(
                 id=existing.id,
                 name=name.strip() or existing.name,
@@ -36,7 +36,7 @@ class InventoryService:
             self._repo.update(updated)
             return updated
         except ItemNotFoundError:
-            #Если товара нет - создаем новый
+            # Если товара нет - создаем новый
             new_item = Item(
                 id=item_id,
                 name=name,
@@ -64,7 +64,7 @@ class InventoryService:
         self._repo.update(updated)
         return updated
 
-    #Поиск генераторами
+    # Поиск через генераторы
 
     def find_by_category(self, category: str) -> Generator[Item, None, None]:
         """Ищет товары по категории."""
