@@ -24,7 +24,7 @@
 
 ```bash
 # Клонировать репозиторий
-git clone https://github.com/TSUYOSHI-GIT/inventory-management-system
+git clone https://github.com/TSUYOSHI-GIT/inventory-management-system.git
 cd inventory-management-system
 
 # Установить зависимости (только pytest для тестов)
